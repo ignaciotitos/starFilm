@@ -1,33 +1,20 @@
-from flask import Flask
+from flask import Flask, render_template, request
 #from application import *
+from scrapper_filmAffinity import movie, weee
 
 app = Flask(__name__)
 
-welcome = """
-<!DOCTYPE html>
-    <html lang="es">
-        <head>
-            <meta charset="utf-8">
-            <title>StarFilm</title>
-            <meta name="Autores" content="Jaime Carrasco, Marta Nieto y Ignacio Titos">
-        </head>
-        <body>
-            <header>
-                <h1>StarFilm Comparator</h1>
-            </header>
-            <main>
-                <form action="procesar.py" method="post">
-                    <label for="Buscador">Película:</label>
-                    <input type="text" id="Buscador" name="buscador"/><br/>
-                </form>
-            </main>
-        </body>
-    </html>
-"""
-
 @app.route('/')
 def principal():
-    return welcome
+    return render_template("inicio.html")
+
+@app.route('/busqueda', methods=['POST'])
+def busqueda():
+    id = request.form.get('Buscador')
+    y = weee(id)
+    #print(y)
+    return 'Hola ' + y
+
 
 if __name__ == '__main__':
     app.run()
