@@ -26,8 +26,8 @@ def busqueda():
     x = puntuacionRT(id)
     z = reviewsRT(id)
     #print(y)
-    return 'Hola ' + y + ' Puntuacion(RottenTomatoes) = '+ x +' Nº Reviews(RottenTomatoes) = '+z + ' '+img+'\n'+media
-
+    #return 'Hola ' + y + ' Puntuacion(RottenTomatoes) = '+ x +' Nº Reviews(RottenTomatoes) = '+z + ' '+img+'\n'+media
+    return render_template('lookin.html', id = id)
 
 if __name__ == '__main__':
     app.run()
