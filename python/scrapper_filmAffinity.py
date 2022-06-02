@@ -14,16 +14,19 @@ import python_filmaffinity
 
 #<div id="movie-rat-avg" itemprop="ratingValue" content="7.8"> 7,8 </div>
 
-print(id)
+#print(id)
 urllib3.disable_warnings()
 service = python_filmaffinity.FilmAffinity()
-movie = service.get_movie(title='Top Gun')
+
+#movie = service.get_movie(title='Top Gun')
 #print(movie['title'])
 #print(movie['directors'])
 #print(movie['actors'])
 #print(movie['rating'])
-print(dir(service))
-print(movie.keys())
+
+#print(dir(service)) 
+#print(movie.keys()) para ver todas las opciones que se pueden buscar
+
 #print(movie.items())
 def weee (data):
     mov = service.get_movie(title=data)

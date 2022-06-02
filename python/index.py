@@ -6,11 +6,6 @@ from scrapper_IMDb import *
 
 app = Flask(__name__)
 
-@app.route('/')
-def principal():
-    return render_template("inicio.html")
-
-@app.route('/busqueda', methods=['POST'])
 def comparar(movie_n):
     eval1 = get_rating(movie_n)
     eval2 = ratingFA(movie_n)
@@ -19,10 +14,15 @@ def comparar(movie_n):
     media = round(suma/3.0, 1)
     return str(media)
 
+@app.route('/')
+def principal():
+    return render_template("inicio.html")
+
+@app.route('/busqueda', methods=['POST'])
 def busqueda():
     id = request.form.get('Buscador')
     media = comparar(id)
-    y, img = weee(id)
+    y, r, v, img = weee(id)
     x = puntuacionRT(id)
     z = reviewsRT(id)
     #print(y)
