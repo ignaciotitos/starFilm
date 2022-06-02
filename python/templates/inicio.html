@@ -4,17 +4,18 @@
             <meta charset="utf-8">
             <title>StarFilm</title>
             <meta name="Autores" content="Jaime Carrasco, Marta Nieto y Ignacio Titos">
+            <link rel="stylesheet" href="inicio.css">
         </head>
         <body>
             <header>
                 <h1>StarFilm Comparator</h1>
             </header>
-            <main>
+            <section class="form-register">
+                <h4>Ingrese una Película</h4>
                 <form action="/busqueda" method="post">
-                    <label for="Buscador">Película:</label>
-                    <input type="text" name="Buscador"/><br/>
-                    <input type="submit" value="Search"/>
+                    <input class ="control" type="text" name="Buscador" placeholder="Película"/><br/>
+                    <input class ="boton" type="submit" value="Search"/>
                 </form>
-            </main>
+            </section>
         </body>
     </html>
