@@ -1,3 +1,4 @@
+from urllib import response
 from bs4 import BeautifulSoup
 import requests
 import urllib3
@@ -17,12 +18,25 @@ print(id)
 urllib3.disable_warnings()
 service = python_filmaffinity.FilmAffinity()
 movie = service.get_movie(title='Top Gun')
-print(movie['title'])
-print(movie['directors'])
-print(movie['actors'])
-print(movie['rating'])
-#t = service.get_movie(title='El padrino (1979)', images=True)
-#print(welcome)
+#print(movie['title'])
+#print(movie['directors'])
+#print(movie['actors'])
+#print(movie['rating'])
+print(dir(service))
+print(movie.keys())
+#print(movie.items())
 def weee (data):
     mov = service.get_movie(title=data)
-    return mov['title']
+    id = mov['id']
+    web = 'https://www.filmaffinity.com/es/film'+id+'.html'
+    response = requests.get(web)
+    content = response.text
+    soup = BeautifulSoup(content, 'lxml')
+    img = soup.find('div', id='right-column').find('div', id='movie-main-image-container').find('a', class_='lightbox').get('href')
+    #img2 = mov['poster'] 
+
+    return mov['title'], mov['rating'], mov['votes'], img #img2
+
+def ratingFA(data):
+    mov = service.get_movie(title=data)
+    return mov['rating']
