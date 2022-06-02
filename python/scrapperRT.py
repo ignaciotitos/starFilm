@@ -3,7 +3,7 @@ import requests
 
 def puntuacionRT(data):
     data = data.replace(' ', '_')
-    data = data.replace(': ', '_')
+    data = data.replace(':', '_')
     website = 'https://www.rottentomatoes.com/m/'+data+''
     result = requests.get(website)
     content = result.text
@@ -20,7 +20,7 @@ def puntuacionRT(data):
 
 def reviewsRT(data):
     data = data.replace(' ', '_')
-    data = data.replace(': ', '_')
+    data = data.replace(':', '_')
     website = 'https://www.rottentomatoes.com/m/'+data+''
     result = requests.get(website)
     content = result.text
