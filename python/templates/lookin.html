@@ -1,11 +1,39 @@
 <!DOCTYPE html>
-    <html lang="es">
-        <head>
-            <meta charset="utf-8">
-            <title>StarFilm</title>
-            <meta name="Autores" content="Jaime Carrasco, Marta Nieto y Ignacio Titos">
-        </head>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>StarFilm</title>
+        <meta name="Autores" content="Jaime Carrasco, Marta Nieto y Ignacio Titos">
+        <style type = "text/css">
+            header{
+                width: 100%;
+                text-align: center;
+                margin-top: 4%;
+            }
+            img{
+                height: 15%;
+                width: 15%;
+                margin: 4%;
+                text-align: center;
+            }
+            
+        </style>
+    </head>
+    <body>
         <body>
-            <h1>id = {{id}}</h1>
+            <header>
+                <img src='{{imagen}}'>
+                <h1>Para tu película "{{titulo_texto}}" hemos encontrado:</h1>
+            </header>
+            <main>
+                <p>Nota Filmaffinity: {{puntuacion_fA}} </p></br>
+                <p>Nota IMDb: {{puntuacion_IMDb}} </p></br>
+                <p>Nota RottenTomatoes: {{puntuacion_RT}} </p></br>
+                <p>Nota Media: {{puntuacion_media}} </p>
+                <p>Actores: {{actores}}</p>
+                <p>Director/es: {{dir}}</p>
+                <p>Año: {{anio}}</p>
+                <p>Sinopsis: {{arg}}</p>
+            </main>
         </body>
-    </html>
+</html>

@@ -45,6 +45,26 @@ def weee (data):
 
     return mov['title'], mov['rating'], mov['votes'], img #img2
 
-def ratingFA(data):
-    mov = service.get_movie(title=data)
-    return mov['rating']
+def get_img(movie_n):
+  mov = service.get_movie(title=movie_n)
+  id = mov['id']
+  web = 'https://www.filmaffinity.com/es/film'+id+'.html'
+  response = requests.get(web)
+  content = response.text
+  soup = BeautifulSoup(content, 'lxml')
+  img = soup.find('div', id='right-column').find('div', id='movie-main-image-container').find('a', class_='lightbox').get('href')
+  return img
+
+#Obtener puntuación
+def get_rating_fA(movie_n):
+  movie = service.get_movie(title=movie_n)
+  return movie['rating']
+
+  #Obtener nº puntuciones
+def get_votes_fA(movie_n):
+    movie = service.get_movie(title=movie_n)
+    return movie['votes']
+    
+def get_argumento_fA(movie_n):
+  movie = service.get_movie(title=movie_n)
+  return movie['description']

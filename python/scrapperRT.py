@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+from rotten_tomatoes_scraper.rt_scraper import MovieScraper
 
 def puntuacionRT(data):
     data = data.replace(' ', '_')
@@ -33,3 +34,13 @@ def reviewsRT(data):
     numeroReviews = soup.find('a', class_='scoreboard__link scoreboard__link--tomatometer').get_text()
 
     return(numeroReviews)
+
+def calificacion(movie):
+    try:
+        movie = movie.replace(':', ' ')
+        movie_scraper = MovieScraper(movie_title=movie)
+        movie_scraper.extract_metadata()
+
+        return(float(movie_scraper.metadata['Score_Rotten']))
+    except BaseException:
+        return(0.0)
