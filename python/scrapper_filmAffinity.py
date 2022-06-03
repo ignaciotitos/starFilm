@@ -1,3 +1,5 @@
+from ctypes import cast
+from turtle import title
 from urllib import response
 from bs4 import BeautifulSoup
 import requests
@@ -25,8 +27,11 @@ service = python_filmaffinity.FilmAffinity()
 #print(movie['rating'])
 
 #print(dir(service)) 
-#print(movie.keys()) para ver todas las opciones que se pueden buscar
-
+#print(movie.keys()) #para ver todas las opciones que se pueden buscar
+p = service.search(10, title = 'Top Gun')
+#print(p[0])
+ti = p[1]['title']
+print(ti)
 #print(movie.items())
 def weee (data):
     mov = service.get_movie(title=data)
