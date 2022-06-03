@@ -10,6 +10,7 @@
                     margin: 0;
                     padding: 0;
                     box-sizing: border-box;
+                    background-color: #ffffff;
                 }
                 .form-register {
                     width: 400px;
@@ -25,6 +26,7 @@
                 .form-register h4 {
                     font-size: 22px;
                     margin-bottom: 20px;
+                    background-color: #232323;
                 }
 
                 .form-register .control {
@@ -38,15 +40,41 @@
                     font-size: 18px;
                 }
 
-                .form-register .boton {
+                .boton {
+                    display: inline-flex; 
+                    align-items: center;
+                    justify-content: center;
                     width: 100%;
+                    color: beige;
                     background: #45325f;
                     border: none;
                     padding: 12px;
-                    color: white;
                     margin: 16px 0;
                     font-size: 16px;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                    transition: .3s ease all;
+                    border-radius: 5px;
+                    position: relative;
+                    overflow: hidden;
                 }
+
+                .search {
+                    color: beige;
+                    background: #45325f;
+                }
+
+                .form-register .formulario {
+                    background: #232323;
+                }
+
+                h1 {
+                    text-align: center;
+                    justify-content: center;
+                    margin-top: 5%;
+                    font-family: 'Bodoni MT'
+                }
+
             </style>
         </head>
         <body>
@@ -55,9 +83,9 @@
             </header>
             <section class="form-register">
                 <h4>Ingrese una Película</h4>
-                <form action="/busqueda" method="post">
+                <form class = "formulario" action="/busqueda" method="post">
                     <input class ="control" type="text" name="Buscador" placeholder="Película"/><br/>
-                    <input class ="boton" type="submit" value="Search"/>
+                    <button class ="boton"><span class="search">Search</span></button>
                 </form>
             </section>
         </body>
