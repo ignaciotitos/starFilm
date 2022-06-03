@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 #from application import *
 from scrapper_filmAffinity import *
 from scrapperRT import * 
