@@ -10,8 +10,9 @@
                     margin: 0;
                     padding: 0;
                     box-sizing: border-box;
-                    background-color: #ffffff;
+                    background-color:bisque;
                 }
+
                 .form-register {
                     width: 400px;
                     background: #232323;
@@ -71,8 +72,13 @@
                 h1 {
                     text-align: center;
                     justify-content: center;
-                    margin-top: 5%;
-                    font-family: 'Bodoni MT'
+                    font-family: 'Bodoni MT';
+                    background-color: #232323;
+                    color: beige;
+                    border-width: 3%;
+                    border-color: #232323;
+                    border-style: solid;
+                    font-size: 300%;
                 }
 
             </style>
@@ -81,6 +87,7 @@
             <header>
                 <h1>StarFilm Comparator</h1>
             </header>
+            <main>
             <section class="form-register">
                 <h4>Ingrese una Película</h4>
                 <form class = "formulario" action="/busqueda" method="post">
@@ -88,5 +95,6 @@
                     <button class ="boton"><span class="search">Search</span></button>
                 </form>
             </section>
+            </main>
         </body>
     </html>

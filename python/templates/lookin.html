@@ -5,35 +5,114 @@
         <title>StarFilm</title>
         <meta name="Autores" content="Jaime Carrasco, Marta Nieto y Ignacio Titos">
         <style type = "text/css">
-            header{
-                width: 100%;
-                text-align: center;
-                margin-top: 4%;
-            }
-            img{
-                height: 15%;
-                width: 15%;
-                margin: 4%;
-                text-align: center;
-            }
+
+                body{
+                    margin: 0;
+                    padding: 0;
+                    background-color: bisque;
+                }
+
+                header {
+                    text-align: center;
+                    float:left;
+                    width: 100%;
+                    height: 15%;
+                    font-family: 'Bodoni MT';
+                    background-color: #232323;
+                    color: beige;
+                    border: 5%;
+                    border-color: #232323;
+                    border-style: solid;
+                }
+
+                header h1{
+                    font-size: 300%;
+                }
+
+                
+                #presentacion{
+                    text-align: center;
+                    text-transform: capitalize;
+                    padding-top: 8%;
+                    font-family: 'Bodoni MT';
+                    font-size: 150%;
+                }
+
+                #presentacion img{
+                    height: 15%;
+                    width: 15%;
+                }
+
+                #tbpunt{
+                    text-align: center;
+                    
+                }
+
+                #tbpunt table{
+                    background-color: rgb(181, 125, 88);
+                    color: white;
+                }
+
+                #tbpunt th{
+                    font-weight: bold;
+                    font-style: italic;
+                }
+
+                #infogeneral{
+                    padding-left: 3%;
+                }
+
+                #infogeneral summary{
+                    font-weight: bold;
+                }
             
         </style>
     </head>
     <body>
         <body>
             <header>
-                <img src='{{imagen}}'>
-                <h1>Para tu película "{{titulo_texto}}" hemos encontrado:</h1>
+                <h1>StarFilm Comparator</h1>
             </header>
             <main>
-                <p>Nota Filmaffinity: {{puntuacion_fA}} </p></br>
-                <p>Nota IMDb: {{puntuacion_IMDb}} </p></br>
-                <p>Nota RottenTomatoes: {{puntuacion_RT}} </p></br>
-                <p>Nota Media: {{puntuacion_media}} </p>
-                <p>Actores: {{actores}}</p>
-                <p>Director/es: {{dir}}</p>
-                <p>Año: {{anio}}</p>
-                <p>Sinopsis: {{arg}}</p>
+                <section id="presentacion">
+                    <h1>{{titulo_texto}}</h1>
+                    <img src='{{imagen}}'>
+                </section>    
+                <section id="tbpunt">
+                    <table border="1", style="margin: 0 auto;">
+                        <tr>
+                            <th>Nota Filmaffinity</th>
+                            <th>Nota IMDb</th>  
+                            <th>Nota RottenTomatoes</th>
+                            <th>Nota Media</th>  
+                        </tr>
+                        <tr>
+                            <td>{{puntuacion_fA}}</td>
+                            <td>{{puntuacion_IMDb}}</td>
+                            <td>{{puntuacion_RT}}</td>
+                            <td>{{puntuacion_media}}</td>
+                        </tr>
+                    </table>
+                    <br/>
+                </section>
+                <section id="infogeneral">
+                    <details>
+                        <summary>Actores:</summary>
+                        <p>{{actores}}</p>
+                    </details>
+                    <details>
+                        <summary>Director/es:</summary>
+                        <p>{{dir}}</p>
+                    </details>
+                    <details>
+                        <summary>Año de salida:</summary>
+                        <p>{{anio}}</p>
+                    </details>
+                    <details>
+                        <summary>Sinopsis</summary>
+                        <p>{{arg}}</p>
+                    </details>
+                </section>
             </main>
         </body>
 </html>
