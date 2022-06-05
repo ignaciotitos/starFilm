@@ -44,3 +44,7 @@ def calificacion(movie):
         return(float(movie_scraper.metadata['Score_Rotten']))
     except BaseException:
         return(0.0)
+
+#movie = MovieScraper(movie_title='Top Gun')
+#movie.extract_metadata()
+#print(movie.metadata)

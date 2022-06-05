@@ -1,4 +1,5 @@
 import imdb
+import numpy
 
 moviesDB = imdb.IMDb()
 
@@ -67,3 +68,24 @@ def get_actors(movie_n):
   casting = movie['cast']
   actors = ' '.join(map(str, casting))
   return actors
+
+def get_list_IMDB(movie_n):
+  p = moviesDB.search_movie('Top Gun')
+  print(p.size)
+
+
+#p = moviesDB.search_movie('Origen')
+#mov = moviesDB.get_movie(p[0].getID())
+#stri = 'Christopher Nolan'
+#print(mov['title'])
+#print(p[0]['title'])
+#if 'director' in mov.keys():
+#  print('yes')
+#else:
+#  print('no')
+#r = str(mov['director'][0])
+#r = r.split("_")
+#print(r == stri)
+#print(r)
+#print(stri)
+#p[4].getID() 

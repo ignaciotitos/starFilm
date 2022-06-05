@@ -28,10 +28,18 @@ service = python_filmaffinity.FilmAffinity()
 
 #print(dir(service)) 
 #print(movie.keys()) #para ver todas las opciones que se pueden buscar
-p = service.search(10, title = 'Top Gun')
-#print(p[0])
-ti = p[1]['title']
-print(ti)
+
+#p = service.search(title = 'Avengers: Endgame')
+#m = service.get_movie(id = p[0]['id'])
+#print(m.keys())
+#r = str(m['directors'][0])
+#print(r)
+#print(p)
+
+#m = service.get_movie(title = 'Everything Must Go')
+#print(m['title'])
+#ti = p[1]['title']
+#print(ti)
 #print(movie.items())
 def weee (data):
     mov = service.get_movie(title=data)
