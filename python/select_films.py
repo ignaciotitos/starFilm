@@ -25,30 +25,31 @@ def seleccion(movie_title):
         fa_movie = service.get_movie(id = fa[i]['id'])
         fa_year = int(fa_movie['year'])
         fa_director = str(fa_movie['directors'][0])
-        print(i,' : fa : ',fa_year)
+        #print(i,' : fa : ',fa_year)
         fila = []
 
         for j in range(len(im)):
             im_movie = moviesDB.get_movie(im[j].getID())
-
+            #print(j,"yii")
             if 'director' in im_movie.keys():
                 imdb_year = int(im_movie['year'])
                 imdb_director = str(im_movie['director'][0])
-                print(j,' : fa : ',imdb_year)
+                #print(j,' : imdb : ',imdb_year)
 
                 if fa_year == imdb_year:
                     if fa_director == imdb_director:
-                        fila.append(fa_movie['title'])
-                        fila.append(im[j]['title'])
+                        fila.append(fa_movie['id'])
+                        fila.append(im[j]['imdbID'])
                         del im[j]
                         pelis.append(fila)
                         break
             else:
-                print('No hay na')
+                del im[j]
+                break
                  
     return pelis
 
-p = seleccion('Origen')
+p = seleccion('Top Gun')
 print(p)
 
 """""
