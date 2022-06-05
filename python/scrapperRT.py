@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-from rotten_tomatoes_scraper.rt_scraper import MovieScraper
+from rotten_tomatoes_scraper.rt_scraper import MovieScraper, DirectorScraper
 
 def puntuacionRT(data):
     data = data.replace(' ', '_')
@@ -45,6 +45,11 @@ def calificacion(movie):
     except BaseException:
         return(0.0)
 
-#movie = MovieScraper(movie_title='Top Gun')
+#movie = DirectorScraper(director_name='Christopher Nolan')
 #movie.extract_metadata()
-#print(movie.metadata)
+#r = list(movie.metadata.keys())
+#print(r)
+#stri = 'Tenet'
+#index = r.index(stri)
+#title = r[index]
+#print(movie.metadata[title]['Score_Rotten'])

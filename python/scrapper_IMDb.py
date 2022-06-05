@@ -74,10 +74,10 @@ def get_list_IMDB(movie_n):
   print(p.size)
 
 
-p = moviesDB.search_movie('Origen')
-mov = moviesDB.get_movie(p[0].getID())
+#p = moviesDB.search_movie('Origen')
+#mov = moviesDB.get_movie(p[0].getID())
 #stri = 'Christopher Nolan'
-print(mov['imdbID'])
+#print(mov['imdbID'])
 #print(p[0]['title'])
 #if 'director' in mov.keys():
 #  print('yes')
