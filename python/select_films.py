@@ -33,8 +33,8 @@ def seleccion(movie_title):
 
                 if fa_year == imdb_year:
                     if fa_director == imdb_director:
-                        fila.append(fa_movie['title'])
-                        fila.append(im_movie['title'])
+                        fila.append(fa_movie['id'])
+                        fila.append(im_movie['imdbID'])
                         director_RT = DirectorScraper(director_name=fa_director)
                         director_RT.extract_metadata()
                         movies_RT = list(director_RT.metadata.keys())
@@ -44,7 +44,7 @@ def seleccion(movie_title):
                             fila.append(director_RT.metadata[title]['Score_Rotten'])
                         except ValueError:
                             fila.append('NaN')
-                            
+
                         del im[j]
                         pelis.append(fila)
                         break
@@ -54,15 +54,17 @@ def seleccion(movie_title):
                  
     return pelis
 
-p = seleccion('Top Gun')
-print(p)
+#p = seleccion('Top Gun')
+#print(p)
 
-def top_pelis_FA():
-    top = service.top_netflix()
-    return top
+def top_FA():
+    top_NF = service.top_netflix(top = 3)
+    top_HBO = service.top_hbo(top = 3)
+    top_MOV = service.top_movistar(top = 3)
+    return top_NF, top_HBO, top_MOV
 
-#t = top_pelis_FA()
-#print(t)
+nf, hbo, mov = top_FA()
+print(hbo)
 
 """""
 im = moviesDB.search_movie('Top Gun')
