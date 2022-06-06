@@ -22,28 +22,35 @@ def titulo():
 def lista_pelis_rating(title):
     info_total = []
     pelis = seleccion(title)
-    for i in len(pelis):
+    for i in range(len(pelis)):
         sum = 0
+        img = ""
         info_parcial = []
-        for j in len(pelis[i]):
+        for j in range(len(pelis[i])):
             if j == 0:
                 fa = service.get_movie(id = pelis[i][j])
-                sum += fa['rating']
+                sum += float(fa['rating'])
+                img = get_img(id = pelis[i][j])
             elif j == 1: 
-                ia = moviesDB.get_movie(pelis)
+                ia = moviesDB.get_movie(pelis[i][j])
                 sum += ia['rating']
             else:
-                sum += ( pelis[i][j] / 10.0 )
+                sum += ( float(pelis[i][j]) / 10.0 )
                 if pelis[i][j] == 0.0:
                     sum /= 2.0
                 else:
                     sum /= 3.0
                     
-        info_parcial.append(pelis[i][1])
+        info_parcial.append(ia['title'])
+        info_parcial.append(img)
         info_parcial.append(fa['rating'])
         info_parcial.append(ia['rating'])
         info_parcial.append(pelis[i][j])
         info_parcial.append(sum)
+        info_parcial.append(ia['cast'])
+        info_parcial.append(ia['directors'])
+        info_parcial.append(ia['year'])
+        info_parcial.append(ia['plot'])
         info_total.append(info_parcial)
 
     return info_total
@@ -75,14 +82,13 @@ def comparar(movie_n):
 @app.route('/busqueda', methods=['POST'])
 def mostrar_info():
     n = titulo()
-    x = eval_RT(n)
+    lista = lista_pelis_rating(n)
 
-    if x==0.0:
-        x = "No hay resultados en RT"
     #return "\nPuntuación media: " + comparar(n) + "\nPuntuación fA: " + eval_fA(n) + "\nPuntuación IMDb: " + str(eval_IMDb(n)) + "\nPuntuación RT: " + eval_RT(n) + "\nVotos fA: " + str(n_eval_fA(n)) + "\nVotos IMDb: " + str(n_eval_IMDb(n)) + "\nVotos RT: " + n_eval_RT(n) + "\nTitulo: " + n + "\nAño: " + str(anio(n)) + "\nDirector: " + dir(n) + "\nActores: " + actores(n) + "\nArgumento: " + str(argumento(n))
-    return render_template('lookin.html', puntuacion_media=comparar(n), puntuacion_fA=get_rating_fA(n), puntuacion_IMDb=str(get_rating(n)),
-     puntuacion_RT=x, titulo_texto=n, votos_fa=str(get_votes_fA(n)), votos_IMDb=str(get_votes(n)),
-     anio=str(get_year(n)), dir=get_directors(n), actores=get_actors(n), arg=str(get_argumento_fA(n)), imagen = get_img(n))
+    #return render_template('lookin.html', puntuacion_media=comparar(n), puntuacion_fA=get_rating_fA(n), puntuacion_IMDb=str(get_rating(n)),
+     #puntuacion_RT=x, titulo_texto=n, votos_fa=str(get_votes_fA(n)), votos_IMDb=str(get_votes(n)),
+     #anio=str(get_year(n)), dir=get_directors(n), actores=get_actors(n), arg=str(get_argumento_fA(n)), imagen = get_img(n))
+    return render_template('lookin.html', busqueda = n, peliculas = lista) 
 
 if __name__ == '__main__':
     app.run()

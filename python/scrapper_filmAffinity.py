@@ -29,9 +29,6 @@ service = python_filmaffinity.FilmAffinity()
 #print(dir(service)) 
 #print(movie.keys()) #para ver todas las opciones que se pueden buscar
 
-p = service.search(cast = 'Leonardo DiCaprio')
-m = service.get_movie(title = 'Inception')
-print(m['cast'])
 #r = str(m['directors'][0])
 #print(r)
 #print(p)
@@ -53,9 +50,7 @@ def weee (data):
 
     return mov['title'], mov['rating'], mov['votes'], img #img2
 
-def get_img(movie_n):
-  mov = service.get_movie(title=movie_n)
-  id = mov['id']
+def get_img(id):
   web = 'https://www.filmaffinity.com/es/film'+id+'.html'
   response = requests.get(web)
   content = response.text

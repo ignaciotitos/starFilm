@@ -75,7 +75,7 @@ def top_FA():
 
 #pelis = seleccion('Top Gun')
 #pelis[0][0] = ('6.5')
-#print(len(pelis))
+#print(pelis)
 #print(len(pelis[0]))
 
 """""
