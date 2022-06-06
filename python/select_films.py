@@ -43,7 +43,7 @@ def seleccion(movie_title):
                             title = movies_RT[index]
                             fila.append(director_RT.metadata[title]['Score_Rotten'])
                         except ValueError:
-                            fila.append('NaN')
+                            fila.append(int(0.0))
 
                         del im[j]
                         pelis.append(fila)
@@ -57,14 +57,26 @@ def seleccion(movie_title):
 #p = seleccion('Top Gun')
 #print(p)
 
+def actores(name):
+    #imdb_actor = moviesDB.search_person(name)
+    fa_actor = service.search(cast = name)
+    rt_actor = CelebrityScraper(celebrity_name = name)
+
+    return 0
+
 def top_FA():
     top_NF = service.top_netflix(top = 3)
     top_HBO = service.top_hbo(top = 3)
     top_MOV = service.top_movistar(top = 3)
     return top_NF, top_HBO, top_MOV
 
-nf, hbo, mov = top_FA()
-print(hbo)
+#nf, hbo, mov = top_FA()
+#print(hbo)
+
+#pelis = seleccion('Top Gun')
+#pelis[0][0] = ('6.5')
+#print(len(pelis))
+#print(len(pelis[0]))
 
 """""
 im = moviesDB.search_movie('Top Gun')

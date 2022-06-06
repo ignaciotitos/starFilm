@@ -74,11 +74,23 @@ def get_list_IMDB(movie_n):
   print(p.size)
 
 
-#p = moviesDB.search_movie('Origen')
-#mov = moviesDB.get_movie(p[0].getID())
+#p = moviesDB.search_person('Leonardo')
+mov = moviesDB.search_movie('Catch Me if You Can')
+mov = moviesDB.get_movie(mov[0].getID())
 #stri = 'Christopher Nolan'
-#print(mov['imdbID'])
-#print(p[0]['title'])
+c = mov['cast']
+for i in range(len(c)):
+  #print(c[i])
+  if 'Leonardo DiCaprio' == str(c[i]):
+    print(c[i])
+    break
+  else:
+    #print('no ta mano')
+    continue
+#info = moviesDB.get_person_infoset()
+#print(info[2])
+#print(p[0].keys())
+#print(p[0].get_person_infoset())
 #if 'director' in mov.keys():
 #  print('yes')
 #else:

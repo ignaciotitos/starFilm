@@ -3,18 +3,46 @@ from flask import Flask, render_template, request
 from scrapper_filmAffinity import *
 from scrapperRT import * 
 from scrapper_IMDb import *
-
+from select_films import top_FA, seleccion
 
 app = Flask(__name__)
-
-@app.route('/')
-def principal():
-    return render_template("inicio.html")
 
 def titulo():
     id = request.form.get('Buscador')
     title = movie_name(id)
     return str(title)
+
+def lista_pelis_rating(title):
+    info_total = []
+    pelis = seleccion(title)
+    for i in len(pelis):
+        sum = 0
+        info_parcial = []
+        for j in len(pelis[i]):
+            if j == 0:
+                fa = service.get_movie(id = pelis[i][j])
+                sum += fa['rating']
+            elif j == 1: 
+                ia = moviesDB.get_movie(pelis)
+                sum += ia['rating']
+            else:
+                sum += ( pelis[i][j] / 10.0 )
+                if pelis[i][j] == 0.0:
+                    sum /= 2.0
+                else:
+                    sum /= 3.0
+                    
+        info_parcial.append(pelis[i][1])
+        info_parcial.append(fa['rating'])
+        info_parcial.append(ia['rating'])
+        info_parcial.append(pelis[i][j])
+        info_parcial.append(sum)
+        info_total.append(info_parcial)
+
+    return info_total
+
+def eval_RT(movie_n):
+    return calificacion(movie_n)/10.0
 
 def comparar(movie_n):
     eval1 = get_rating(movie_n)
@@ -33,8 +61,9 @@ def comparar(movie_n):
 
     return str(media)
 
-def eval_RT(movie_n):
-    return calificacion(movie_n)/10.0
+@app.route('/')
+def principal():
+    return render_template("inicio.html")
 
 """def n_eval_RT(movie_n):
     return reviewsRT(movie_n)"""

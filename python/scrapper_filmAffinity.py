@@ -29,9 +29,9 @@ service = python_filmaffinity.FilmAffinity()
 #print(dir(service)) 
 #print(movie.keys()) #para ver todas las opciones que se pueden buscar
 
-#p = service.search(title = 'Avengers: Endgame')
-#m = service.get_movie(id = p[0]['id'])
-#print(m.keys())
+p = service.search(cast = 'Leonardo DiCaprio')
+m = service.get_movie(title = 'Inception')
+print(m['cast'])
 #r = str(m['directors'][0])
 #print(r)
 #print(p)
