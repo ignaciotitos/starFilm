@@ -3,13 +3,16 @@ from flask import Flask, render_template, request
 from scrapper_filmAffinity import *
 from scrapperRT import * 
 from scrapper_IMDb import *
+from select_films import *
 
 
 app = Flask(__name__)
 
 @app.route('/')
 def principal():
-    return render_template("inicio.html")
+    nf,hbo,mov = top_FA()
+
+    return render_template("inicio.html", pelis_nf = nf, pelis_hbo = hbo, pelis_mov = mov)
 
 def titulo():
     id = request.form.get('Buscador')
