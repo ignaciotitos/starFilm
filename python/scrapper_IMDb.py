@@ -14,8 +14,12 @@ moviesDB = imdb.IMDb()
 
 #Devolver pelicula de IMDb
 def movie_name(movie_n):
+  movies = []
   movies = moviesDB.search_movie(movie_n)
-  movie = moviesDB.get_movie(movies[0].getID())
+  if (len(movies) == 0):
+    movie = "error"
+  else:
+    movie = moviesDB.get_movie(movies[0].getID())
   return movie
 
 #Obtener título
