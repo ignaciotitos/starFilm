@@ -29,11 +29,15 @@ service = python_filmaffinity.FilmAffinity()
 #print(dir(service)) 
 #print(movie.keys()) #para ver todas las opciones que se pueden buscar
 
+<<<<<<< HEAD
 #p = service.search(title = 'Django Unchained')
 #m = service.get_movie(id = p[0]['id'])
 #if "Leonardo DiCaprio" in m['actors']:
 #  print(p)
 
+=======
+#r = str(m['directors'][0])
+>>>>>>> cebf36b277816de3243e1c3ff41be4034011eafd
 #print(r)
 #print(p)
 
@@ -54,9 +58,7 @@ def weee (data):
 
     return mov['title'], mov['rating'], mov['votes'], img #img2
 
-def get_img(movie_n):
-  mov = service.get_movie(title=movie_n)
-  id = mov['id']
+def get_img(id):
   web = 'https://www.filmaffinity.com/es/film'+id+'.html'
   response = requests.get(web)
   content = response.text

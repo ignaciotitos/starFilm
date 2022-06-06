@@ -33,7 +33,7 @@
                 #presentacion{
                     text-align: center;
                     text-transform: capitalize;
-                    padding-top: 8%;
+                    padding-top: 1%;
                     font-family: 'Bodoni MT';
                     font-size: 150%;
                 }
@@ -65,18 +65,25 @@
                 #infogeneral summary{
                     font-weight: bold;
                 }
+
+                main p{
+                    text-align: center;
+                    font-family: 'Bodoni MT';
+                }
             
         </style>
     </head>
     <body>
-        <body>
             <header>
                 <h1>StarFilm Comparator</h1>
             </header>
             <main>
+                <p>Resultados de la búsqueda: "{{busqueda}}"</p>
+                <br/>
+                {% for info in peliculas %}
                 <section id="presentacion">
-                    <h1>{{titulo_texto}}</h1>
-                    <img src='{{imagen}}'>
+                    <h1>{{info[0]}}</h1>
+                    <img src='{{info[1]}}'>
                 </section>    
                 <section id="tbpunt">
                     <table border="1", style="margin: 0 auto;">
@@ -87,10 +94,10 @@
                             <th>Nota Media</th>  
                         </tr>
                         <tr>
-                            <td>{{puntuacion_fA}}</td>
-                            <td>{{puntuacion_IMDb}}</td>
-                            <td>{{puntuacion_RT}}</td>
-                            <td>{{puntuacion_media}}</td>
+                            <td>{{info[2]}}</td>
+                            <td>{{info[3]}}</td>
+                            <td>{{info[4]}}</td>
+                            <td>{{info[5]}}</td>
                         </tr>
                     </table>
                     <br/>
@@ -98,21 +105,26 @@
                 <section id="infogeneral">
                     <details>
                         <summary>Actores:</summary>
+                        {% for actores in info[6] %}
                         <p>{{actores}}</p>
+                        {% endfor %}
                     </details>
                     <details>
                         <summary>Director/es:</summary>
+                        {% for dir in info[7] %}
                         <p>{{dir}}</p>
+                        {% endfor %}
                     </details>
                     <details>
                         <summary>Año de salida:</summary>
-                        <p>{{anio}}</p>
+                        <p>{{info[8]}}</p>
                     </details>
                     <details>
                         <summary>Sinopsis</summary>
-                        <p>{{arg}}</p>
+                        <p>{{info[9]}}</p>
                     </details>
                 </section>
+                {% endfor %}
             </main>
         </body>
 </html>
