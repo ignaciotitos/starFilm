@@ -1,3 +1,4 @@
+from urllib.error import HTTPError
 from bs4 import BeautifulSoup
 import requests
 from rotten_tomatoes_scraper.rt_scraper import MovieScraper, DirectorScraper, CelebrityScraper
@@ -46,9 +47,15 @@ def calificacion(movie):
         return(0.0)
 
 #movie = DirectorScraper(director_name='Christopher Nolan')
-#person = CelebrityScraper(celebrity_name='Leonardo')
+#name = 'Jack Nicholson'
+#person = CelebrityScraper(celebrity_name=name)
 #person.extract_metadata(section='highest')
-#print(person.metadata.keys())
+#print(len(person.metadata))
+#movies = person.metadata['movie_titles'] 
+
+        
+    
+#print(len(mov.metadata))
 #movies = person.metadata['movie_titles']
 #print(movies)
 #movie.extract_metadata()

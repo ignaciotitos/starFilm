@@ -1,3 +1,4 @@
+from types import NoneType
 from scrapper_IMDb import *
 from scrapper_filmAffinity import *
 from scrapperRT import *
@@ -64,6 +65,7 @@ def actores(name):
     rt_actor.extract_metadata(section='highest')
     movies = rt_actor.metadata['movie_titles']
     pelis = []
+
     for i in range(len(movies)):
         fila = []
         print('rt ', movies[i])
@@ -77,13 +79,24 @@ def actores(name):
                 fa = service.get_movie(id = fa[0]['id'])
                 print('fa', fa['title'])
                 if name in fa['actors']:
+                    rt_movie = MovieScraper(movie_title = movies[i])
+                    try:
+                        mov = rt_movie.extract_metadata()
+                    except HTTPError:
+                        break
                     fila.append(fa['id'])
                     fila.append(im['imdbID'])
-                    rt_movie = MovieScraper(movie_title = movies[i])
-                    rt_movie.extract_metadata()
-                    fila.append(rt_movie.metadata['Score_Rotten'])
+                    #rt_movie = MovieScraper(movie_title = movies[i])
+                    #rt_movie.extract_metadata()
+
+                    if rt_movie.metadata['Score_Rotten'] == '':
+                        fila.append(0.0)
+                    else:
+                        fila.append(rt_movie.metadata['Score_Rotten'])
                     pelis.append(fila)
                     break
+                else:
+                    continue
             else:
                 continue
     return pelis
@@ -94,15 +107,19 @@ def lista_pelis_rating(title, peli_actor):
         pelis = seleccion(title)
     else:
         pelis = actores(title)
-    
+
     for i in range(len(pelis)):
+        print(i)
         sum = 0
         img = ""
         info_parcial = []
         for j in range(len(pelis[i])):
             if j == 0:
                 fa = service.get_movie(id = pelis[i][j])
-                sum += float(fa['rating'])
+                if fa['rating'] is not NoneType:
+                    sum += float(fa['rating'])
+                else:
+                    sum += 0.0
                 img = get_img(id = pelis[i][j])
             elif j == 1: 
                 ia = moviesDB.get_movie(pelis[i][j])
@@ -126,6 +143,7 @@ def lista_pelis_rating(title, peli_actor):
         info_parcial.append(ia['plot'])
         info_total.append(info_parcial)
 
+    #print(info_total)
     return info_total
 
 def eval_RT(movie_n):
@@ -148,7 +166,10 @@ def comparar(movie_n):
 
     return str(media)
 
-#a = actores("Leonardo DiCaprio")
+#a = lista_pelis_rating("Jack Nicholson", False)
+#a = numpy.array(a, dtype=object)
+#print(a)
+#a = actores('Jack Nicholson')
 #print(a)
 
 def top_FA():
