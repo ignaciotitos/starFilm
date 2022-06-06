@@ -16,10 +16,7 @@ moviesDB = imdb.IMDb()
 def movie_name(movie_n):
   movies = []
   movies = moviesDB.search_movie(movie_n)
-  if (len(movies) == 0):
-    movie = "error"
-  else:
-    movie = moviesDB.get_movie(movies[0].getID())
+  movie = moviesDB.get_movie(movies[0].getID())
   return movie
 
 #Obtener título
@@ -78,11 +75,12 @@ def get_list_IMDB(movie_n):
   print(p.size)
 
 
-#p = moviesDB.search_person('Leonardo DiCaprio')
-#print(len(p))
+#p = moviesDB.search_movie('Leonardo DiCaprio')
+#p = moviesDB.get_movie(p[0].getID())
+#print(p)
 #print(p[3]['full-size headshot'])
 #print(p[3]['long imdb name'])
-n#ame = 'Emma Watson'
+#name = 'Emma Watson'
 #mov = moviesDB.search_movie(name)
 #mov = moviesDB.get_movie(mov[0].getID())
 #c = mov['cast']

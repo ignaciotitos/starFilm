@@ -32,23 +32,34 @@ def principal():
 @app.route('/busqueda', methods=['POST'])
 def mostrar_info():
     n = titulo()
-    m = service.get_movie(title = name)
+    m = service.get_movie(title = n)
     peli = False
+    
     if (len(m) == 0):
         #actor
         peli = False
     else:
-        if 'documental' in m['genre']:
+        if 'Documental' in m['genre']:
             peli = False #actor
         else:
             peli = True #peli
-        
-    lista = lista_pelis_rating(n, peli)
 
-    if (n == "error"):
+    
+    #lista = lista_pelis_rating(n, peli)
+    p = moviesDB.search_person(n)
+    
+    esta = False
+    for i in range(len(p)):
+        if n.lower() == str(p[i]).lower():
+            esta = True
+            break
+        else:
+            continue
+
+    if peli == False and esta == False:
         return render_template('error.html')
     else:
-        lista = lista_pelis_rating(n)
+        lista = lista_pelis_rating(n, peli)
         return render_template('lookin.html', busqueda = n, peliculas = lista) 
     #return "\nPuntuación media: " + comparar(n) + "\nPuntuación fA: " + eval_fA(n) + "\nPuntuación IMDb: " + str(eval_IMDb(n)) + "\nPuntuación RT: " + eval_RT(n) + "\nVotos fA: " + str(n_eval_fA(n)) + "\nVotos IMDb: " + str(n_eval_IMDb(n)) + "\nVotos RT: " + n_eval_RT(n) + "\nTitulo: " + n + "\nAño: " + str(anio(n)) + "\nDirector: " + dir(n) + "\nActores: " + actores(n) + "\nArgumento: " + str(argumento(n))
     #return render_template('lookin.html', puntuacion_media=comparar(n), puntuacion_fA=get_rating_fA(n), puntuacion_IMDb=str(get_rating(n)),
