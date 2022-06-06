@@ -1,3 +1,4 @@
+from operator import itemgetter
 from types import NoneType
 from scrapper_IMDb import *
 from scrapper_filmAffinity import *
@@ -9,48 +10,52 @@ def seleccion(movie_title):
     #FA --> service
     #RT --> MovieScraper()
 
-    im = moviesDB.search_movie(movie_title)
+    # Obtengo las películas de una búsqueda en imdb y en FilmAffinity
+    # Tienen un tope por default a no ser que se lo pongas tu.
+    im = moviesDB.search_movie(movie_title) 
     fa = service.search(title = movie_title)
     
+    # Para guardar las peliculas
     pelis = []
 
     #print(len(fa))
     #print(len(im))
     
+    #Vamos a iterar las películas obtenidas en FA.
+    #Creemos que era mejor así ya que era el que más tardaba en obtener los datos.
     for i in range(len(fa)):
-        fa_movie = service.get_movie(id = fa[i]['id'])
-        fa_year = int(fa_movie['year'])
-        fa_director = str(fa_movie['directors'][0])
+        fa_movie = service.get_movie(id = fa[i]['id']) #Obtengo la pelicula 0, ya que lo que cogemos con el search devuelve una lista de peliculas con todos sus datos
+        fa_year = int(fa_movie['year']) #Obtengo el año para comparar y cerciorarnos de que es la misma pelicula
+        fa_director = str(fa_movie['directors'][0]) #Obtengo el director para cerciorarme x2 de que es la misma pelicula
         #print(i,' : fa : ',fa_year)
         fila = []
 
-        for j in range(len(im)):
+        for j in range(len(im)): #iteramos las peliculas de imdb obtenidas
             im_movie = moviesDB.get_movie(im[j].getID())
-            #print(j,"yii")
-            if 'director' in im_movie.keys():
-                imdb_year = int(im_movie['year'])
-                imdb_director = str(im_movie['director'][0])
-                #print(j,' : imdb : ',imdb_year)
+            
+            if 'director' in im_movie.keys(): #si hay director, porque es posible que no este el dato de 'director'
+                imdb_year = int(im_movie['year']) #obtenemos el año y el director.
+                imdb_director = str(im_movie['director'][0]) #puede que haya dos directores, con el primero nos basta
 
-                if fa_year == imdb_year:
+                if fa_year == imdb_year: 
                     if fa_director == imdb_director:
-                        fila.append(fa_movie['id'])
-                        fila.append(im_movie['imdbID'])
-                        director_RT = DirectorScraper(director_name=fa_director)
-                        director_RT.extract_metadata()
+                        fila.append(fa_movie['id']) #metemos el id de la peli, ya que es lo mas fiable porque el titulo puede derivar en dos peliculas distintas
+                        fila.append(im_movie['imdbID']) #idem con el de imdb
+                        director_RT = DirectorScraper(director_name=fa_director) #hacemos lo de antes pero con rotten
+                        director_RT.extract_metadata() #extraemos los datos.
                         movies_RT = list(director_RT.metadata.keys())
-                        try:
+                        try: #es posible que rotten no tenga valoracion, por lo que probamos para que no salten errores
                             index = movies_RT.index(im[j]['title'])
                             title = movies_RT[index]
                             fila.append(director_RT.metadata[title]['Score_Rotten'])
                         except ValueError:
                             fila.append(int(0.0))
 
-                        del im[j]
+                        del im[j] #si ya se ha visto la pelicula la borramos para no seguir iterandola más tarde.
                         pelis.append(fila)
                         break
             else:
-                del im[j]
+                del im[j] #si no tiene director borramos la pelicula porque no nos interesa.
                 break
                  
     return pelis
@@ -58,31 +63,30 @@ def seleccion(movie_title):
 #p = seleccion('Top Gun')
 #print(p)
 
-def actores(name):
-    #imdb_actor = moviesDB.search_person(name)
-    #fa_actor = service.search(cast = name)
-    rt_actor = CelebrityScraper(celebrity_name = name)
+def actores(name): #vamos a hacer la seleccion por actores
+    
+    rt_actor = CelebrityScraper(celebrity_name = name) #Cogemos el actor por el scrapper de rotten
     rt_actor.extract_metadata(section='highest')
-    movies = rt_actor.metadata['movie_titles']
+    movies = rt_actor.metadata['movie_titles'] #Esto nos permite sacar las peliculas de una manera fácil
     pelis = []
 
-    for i in range(len(movies)):
+    for i in range(len(movies)): #Vamos a iterar las películas obtenidas
         fila = []
-        print('rt ', movies[i])
-        im = moviesDB.search_movie(movies[i])
-        im = moviesDB.get_movie(im[0].getID())
-        print('imbd ', im['title'])
-        c = im['cast']
+        
+        im = moviesDB.search_movie(movies[i]) #Sacamos las películas con ese título, o todas las posibles
+        im = moviesDB.get_movie(im[0].getID()) #Con esto vamos a sacar la información completa de la primera película, ya que al tener el título completo, seguramente la primera sea la buena
+        
+        c = im['cast'] #Sacamos los actores de la pelicula
         for j in range(len(c)):
-            if str(name).lower() == str(c[j]).lower():
-                fa = service.search(title = movies[i])
-                fa = service.get_movie(id = fa[0]['id'])
-                print('fa', fa['title'])
-                if name in fa['actors']:
-                    rt_movie = MovieScraper(movie_title = movies[i])
-                    try:
+            if str(name).lower() == str(c[j]).lower(): #Con esto vemos si el actor pertenece al reparto.
+                fa = service.search(title = movies[i]) #si pertenece, buscamos la pelicula en FA y hacemos lo mismo, 
+                fa = service.get_movie(id = fa[0]['id']) #sacamos el reparto y vemos si el actor pertenece a el.
+                
+                if name in fa['actors']: #en caso de que pertenezca
+                    rt_movie = MovieScraper(movie_title = movies[i]) #Sacamos la pelicula de rotten para obtener su puntuacion, que nos viene bien luego para hacer la media.
+                    try:                #hay posibles errores al obtener puntuaciones y no haya, por lo que probamos que no nos de ese error.
                         mov = rt_movie.extract_metadata()
-                    except HTTPError:
+                    except HTTPError: 
                         break
                     fila.append(fa['id'])
                     fila.append(im['imdbID'])
@@ -99,28 +103,29 @@ def actores(name):
                     continue
             else:
                 continue
-    return pelis
+    return pelis #Obtenemos una lista de listas igual que en peliculas ya que para el siguiente metodo nos viene bien y no tener que hacer dos.
 
 def lista_pelis_rating(title, peli_actor):
     info_total = []
+    #Vemos si los datos son referentes a un actor o una pelicula.
     if peli_actor == True:
         pelis = seleccion(title)
     else:
         pelis = actores(title)
 
-    for i in range(len(pelis)):
+    for i in range(len(pelis)): #iteramos todas las peliculas que haya
         print(i)
         sum = 0
         img = ""
         info_parcial = []
-        for j in range(len(pelis[i])):
+        for j in range(len(pelis[i])): #iteramos lo que hay en 1--> id_FA, 2--> id_IMDB, 3--> Valoracion rotten
             if j == 0:
                 fa = service.get_movie(id = pelis[i][j])
-                if fa['rating'] is not NoneType:
+                if fa['rating'] is not NoneType: #Si es nonetype, es decir, no hay valoracion, se coge un 0
                     sum += float(fa['rating'])
                 else:
                     sum += 0.0
-                img = get_img(id = pelis[i][j])
+                img = get_img(id = pelis[i][j]) #Se obtiene la imagen para plasmarla en el html
             elif j == 1: 
                 ia = moviesDB.get_movie(pelis[i][j])
                 sum += ia['rating']
@@ -144,6 +149,7 @@ def lista_pelis_rating(title, peli_actor):
         info_total.append(info_parcial)
 
     #print(info_total)
+    sorted(info_total, key=itemgetter(5))
     return info_total
 
 def eval_RT(movie_n):
@@ -177,19 +183,4 @@ def top_FA():
     top_HBO = service.top_hbo(top = 3)
     top_MOV = service.top_movistar(top = 3)
     return top_NF, top_HBO, top_MOV
-
-#nf, hbo, mov = top_FA()
-#print(hbo)
-
-#pelis = seleccion('Top Gun')
-#pelis[0][0] = ('6.5')
-#print(pelis)
-#print(len(pelis[0]))
-
-"""""
-im = moviesDB.search_movie('Top Gun')
-fa = service.search(title = 'Top Gun')
-print(im[0]['year'])
-mov = service.get_movie(title = fa[0]['title'])
-print(mov['year'])"""""
 

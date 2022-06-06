@@ -28,32 +28,30 @@ def principal():
 
 @app.route('/busqueda', methods=['POST'])
 def mostrar_info():
-    n = titulo()
-    m = service.get_movie(title = n)
-    peli = False
+    n = titulo() #Se obtiene lo que se ha puesto en el buscador.
+    m = service.get_movie(title = n) #Se obtiene la pelicula
+    peli = False #con esto vemos si es pelicula o actor lo que se busca
     
-    if (len(m) == 0):
+    if (len(m) == 0): #si es 0, es decir, no hay nada cuando buscas una pelicula, es porque será actor
         #actor
         peli = False
     else:
-        if 'Documental' in m['genre']:
+        if 'Documental' in m['genre']: #si en el género es un documental en la pelicula que obtienes es porque estas buscando un actor que han hecho un documental sobre el.
             peli = False #actor
-        else:
+        else: #sino pues sera una pelicula
             peli = True #peli
 
-    
-    #lista = lista_pelis_rating(n, peli)
-    p = moviesDB.search_person(n)
+    p = moviesDB.search_person(n) #buscamos la persona para ver los actores que salen con ese nombre
     
     esta = False
     for i in range(len(p)):
-        if n.lower() == str(p[i]).lower():
+        if n.lower() == str(p[i]).lower(): #Vemos si el actor esta contenido, lo que seguramente sea asi ya que salen los actores relacionados con el nombre.
             esta = True
             break
         else:
             continue
 
-    if peli == False and esta == False:
+    if peli == False and esta == False: # si no sale pelicula ni actor que lance un error.
         return render_template('error.html')
     else:
         lista = lista_pelis_rating(n, peli)
