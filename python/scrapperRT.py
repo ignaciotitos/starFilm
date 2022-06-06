@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 from rotten_tomatoes_scraper.rt_scraper import MovieScraper, DirectorScraper, CelebrityScraper
 
+#Obtiene la Puntuación de RT scrapeando su página web con Beautiful Soup 
 def puntuacionRT(data):
     data = data.replace(' ', '_')
     data = data.replace(':', '_')
@@ -19,6 +20,7 @@ def puntuacionRT(data):
 
     return(str(resultado[0]))
 
+#Obtiene el número de reviews igual que con Puntuación
 def reviewsRT(data):
     data = data.replace(' ', '_')
     data = data.replace(':', '_')
@@ -35,6 +37,7 @@ def reviewsRT(data):
 
     return(numeroReviews)
 
+#Obtiene la puntuación a través de la libreria de rotten tomatoes scraper
 def calificacion(movie):
     try:
         movie = movie.replace(':', ' ')

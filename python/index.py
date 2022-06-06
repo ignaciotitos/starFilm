@@ -11,6 +11,7 @@ from select_films import *
 
 app = Flask(__name__)
 
+#Devuelve el título del inicio.html
 def titulo():
     id = request.form.get('Buscador')
     title = movie_name(id)
@@ -20,12 +21,14 @@ def titulo():
 """def n_eval_RT(movie_n):
     return reviewsRT(movie_n)"""
 
+#Llama a inicio.html con los tops de películas para enseñarlas por pantalla (Se actualizaran si las páginas cambian el top)
 @app.route('/')
 def principal():
     nf,hbo,mov = top_FA()
 
     return render_template("inicio.html", pelis_nf = nf, pelis_hbo = hbo, pelis_mov = mov)
 
+#Llama a lookin.html que devuelve la información correspondiente a una lista de películas dada y las muestra de forma cómoda
 @app.route('/busqueda', methods=['POST'])
 def mostrar_info():
     n = titulo()
