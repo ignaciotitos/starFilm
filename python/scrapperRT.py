@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-from rotten_tomatoes_scraper.rt_scraper import MovieScraper, DirectorScraper
+from rotten_tomatoes_scraper.rt_scraper import MovieScraper, DirectorScraper, CelebrityScraper
 
 def puntuacionRT(data):
     data = data.replace(' ', '_')
@@ -46,6 +46,10 @@ def calificacion(movie):
         return(0.0)
 
 #movie = DirectorScraper(director_name='Christopher Nolan')
+person = CelebrityScraper(celebrity_name='Leonardo')
+person.extract_metadata(section='highest')
+movies = person.metadata['movie_titles']
+print(movies)
 #movie.extract_metadata()
 #r = list(movie.metadata.keys())
 #print(r)
