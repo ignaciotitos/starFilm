@@ -47,6 +47,7 @@ else:
 #ti = p[1]['title']
 #print(ti)
 #print(movie.items())
+#Función de prueba para ver como saca las cosas la libreria de FilmAffinity
 def weee (data):
     mov = service.get_movie(title=data)
     id = mov['id']
@@ -59,6 +60,7 @@ def weee (data):
 
     return mov['title'], mov['rating'], mov['votes'], img #img2
 
+ #Obtiene la imagen de la página web de FilmAffinity que viene en mejor calidad que en IMDb
 def get_img(id):
   web = 'https://www.filmaffinity.com/es/film'+id+'.html'
   response = requests.get(web)
@@ -76,7 +78,7 @@ def get_rating_fA(movie_n):
 def get_votes_fA(movie_n):
     movie = service.get_movie(title=movie_n)
     return movie['votes']
-    
+  #Obtener la sinopsis (Estas funciones no las usamos pero estan de prueba)
 def get_argumento_fA(movie_n):
   movie = service.get_movie(title=movie_n)
   return movie['description']

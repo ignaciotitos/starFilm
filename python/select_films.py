@@ -4,6 +4,7 @@ from scrapper_IMDb import *
 from scrapper_filmAffinity import *
 from scrapperRT import *
 
+#Función Clave: Devuelve una lista con las películas que más se parecen al nombre dado por el usuario, dicha lista contiene conjuntos que contienen a su vez el id de FA, el id de IMDb y la puntuación de RT
 def seleccion(movie_title):
     ## Nombres de los scrappers importados de sus respectivas clases
     #imdb --> moviesDB
@@ -105,6 +106,7 @@ def actores(name): #vamos a hacer la seleccion por actores
                 continue
     return pelis #Obtenemos una lista de listas igual que en peliculas ya que para el siguiente metodo nos viene bien y no tener que hacer dos.
 
+#Función Clave: Devuelve una lista con la informacion perteneciente a cada una de las películas que se relacionan con lo que el usuario haya introducido (actor o película)
 def lista_pelis_rating(title, peli_actor):
     info_total = []
     #Vemos si los datos son referentes a un actor o una pelicula.
@@ -152,9 +154,11 @@ def lista_pelis_rating(title, peli_actor):
     sorted(info_total, key=itemgetter(5))
     return info_total
 
+#Obtiene la calificación de RT pero en formato de 0 a 10
 def eval_RT(movie_n):
     return calificacion(movie_n)/10.0
 
+#Obtiene la media de los ratings de las peliculas 
 def comparar(movie_n):
     eval1 = get_rating(movie_n)
     print(eval1)
@@ -178,6 +182,7 @@ def comparar(movie_n):
 #a = actores('Jack Nicholson')
 #print(a)
 
+#Función Clave: Devuelve la información de las películas que se encuentran en el top 3 más populares en Netflix, HBO y Movistar
 def top_FA():
     top_NF = service.top_netflix(top = 3)
     top_HBO = service.top_hbo(top = 3)
