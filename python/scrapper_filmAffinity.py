@@ -29,15 +29,7 @@ service = python_filmaffinity.FilmAffinity()
 #print(dir(service)) 
 #print(movie.keys()) #para ver todas las opciones que se pueden buscar
 
-<<<<<<< HEAD
-#p = service.search(title = 'Django Unchained')
-#m = service.get_movie(id = p[0]['id'])
-#if "Leonardo DiCaprio" in m['actors']:
-#  print(p)
-
-=======
 #r = str(m['directors'][0])
->>>>>>> cebf36b277816de3243e1c3ff41be4034011eafd
 #print(r)
 #print(p)
 
