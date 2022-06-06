@@ -33,8 +33,14 @@ service = python_filmaffinity.FilmAffinity()
 #print(r)
 #print(p)
 
-#m = service.get_movie(title = 'Everything Must Go')
-#print(m['title'])
+#m = service.get_movie(title = 'Leonardo DiCaprio')
+#if (len(m) == 0):
+  #actor
+#  print('nada')
+#else:
+#  g = m['genre']
+#  print(g)
+
 #ti = p[1]['title']
 #print(ti)
 #print(movie.items())

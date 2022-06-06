@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from sqlalchemy import false
 #from application import *
 from scrapper_filmAffinity import *
 from scrapperRT import * 
@@ -26,7 +27,18 @@ def principal():
 @app.route('/busqueda', methods=['POST'])
 def mostrar_info():
     n = titulo()
-    lista = lista_pelis_rating(n)
+    m = service.get_movie(title = name)
+    peli = False
+    if (len(m) == 0):
+        #actor
+        peli = False
+    else:
+        if 'documental' in m['genre']:
+            peli = False #actor
+        else:
+            peli = True #peli
+        
+    lista = lista_pelis_rating(n, peli)
 
     #return "\nPuntuación media: " + comparar(n) + "\nPuntuación fA: " + eval_fA(n) + "\nPuntuación IMDb: " + str(eval_IMDb(n)) + "\nPuntuación RT: " + eval_RT(n) + "\nVotos fA: " + str(n_eval_fA(n)) + "\nVotos IMDb: " + str(n_eval_IMDb(n)) + "\nVotos RT: " + n_eval_RT(n) + "\nTitulo: " + n + "\nAño: " + str(anio(n)) + "\nDirector: " + dir(n) + "\nActores: " + actores(n) + "\nArgumento: " + str(argumento(n))
     #return render_template('lookin.html', puntuacion_media=comparar(n), puntuacion_fA=get_rating_fA(n), puntuacion_IMDb=str(get_rating(n)),

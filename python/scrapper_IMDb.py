@@ -78,8 +78,18 @@ def get_list_IMDB(movie_n):
 #print(len(p))
 #print(p[3]['full-size headshot'])
 #print(p[3]['long imdb name'])
-#mov = moviesDB.search_movie('Catch Me if You Can')
+n#ame = 'Emma Watson'
+#mov = moviesDB.search_movie(name)
 #mov = moviesDB.get_movie(mov[0].getID())
+#c = mov['cast']
+#for i in range(len(c)):
+  #print(c[i])
+#  if name.lower() == str(c[i]).lower():
+#    print(c[i])
+#    break
+#  else:
+#    print('no ta mano')
+#    continue
 #stri = 'Christopher Nolan'
 #name = 'Leonardo DiCaprio'
 #c = mov['cast']

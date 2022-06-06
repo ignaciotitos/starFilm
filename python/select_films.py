@@ -57,9 +57,6 @@ def seleccion(movie_title):
 #p = seleccion('Top Gun')
 #print(p)
 
-def actores_no_entero(name):
-    return 0
-
 def actores(name):
     #imdb_actor = moviesDB.search_person(name)
     #fa_actor = service.search(cast = name)
@@ -91,9 +88,13 @@ def actores(name):
                 continue
     return pelis
 
-def lista_pelis_rating(title):
+def lista_pelis_rating(title, peli_actor):
     info_total = []
-    pelis = seleccion(title)
+    if peli_actor == True:
+        pelis = seleccion(title)
+    else:
+        pelis = actores(title)
+    
     for i in range(len(pelis)):
         sum = 0
         img = ""
