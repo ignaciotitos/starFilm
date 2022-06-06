@@ -57,12 +57,42 @@ def seleccion(movie_title):
 #p = seleccion('Top Gun')
 #print(p)
 
+def actores_no_entero(name):
+    return 0
+
 def actores(name):
     #imdb_actor = moviesDB.search_person(name)
-    fa_actor = service.search(cast = name)
+    #fa_actor = service.search(cast = name)
     rt_actor = CelebrityScraper(celebrity_name = name)
+    rt_actor.extract_metadata(section='highest')
+    movies = rt_actor.metadata['movie_titles']
+    pelis = []
+    for i in range(len(movies)):
+        fila = []
+        print('rt ', movies[i])
+        im = moviesDB.search_movie(movies[i])
+        im = moviesDB.get_movie(im[0].getID())
+        print('imbd ', im['title'])
+        c = im['cast']
+        for j in range(len(c)):
+            if str(name).lower() == str(c[j]).lower():
+                fa = service.search(title = movies[i])
+                fa = service.get_movie(id = fa[0]['id'])
+                print('fa', fa['title'])
+                if name in fa['actors']:
+                    fila.append(fa['id'])
+                    fila.append(im['imdbID'])
+                    rt_movie = MovieScraper(movie_title = movies[i])
+                    rt_movie.extract_metadata()
+                    fila.append(rt_movie.metadata['Score_Rotten'])
+                    pelis.append(fila)
+                    break
+            else:
+                continue
+    return pelis
 
-    return 0
+#a = actores("Leonardo DiCaprio")
+#print(a)
 
 def top_FA():
     top_NF = service.top_netflix(top = 3)

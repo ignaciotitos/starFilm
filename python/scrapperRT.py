@@ -46,11 +46,15 @@ def calificacion(movie):
         return(0.0)
 
 #movie = DirectorScraper(director_name='Christopher Nolan')
-person = CelebrityScraper(celebrity_name='Leonardo')
-person.extract_metadata(section='highest')
-movies = person.metadata['movie_titles']
-print(movies)
+#person = CelebrityScraper(celebrity_name='Leonardo')
+#person.extract_metadata(section='highest')
+#print(person.metadata.keys())
+#movies = person.metadata['movie_titles']
+#print(movies)
 #movie.extract_metadata()
+#rt_movie = MovieScraper(movie_title = 'Catch Me if You Can')
+#rt_movie.extract_metadata()
+#print(rt_movie.metadata.keys())
 #r = list(movie.metadata.keys())
 #print(r)
 #stri = 'Tenet'

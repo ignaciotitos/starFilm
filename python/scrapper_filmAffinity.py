@@ -29,10 +29,11 @@ service = python_filmaffinity.FilmAffinity()
 #print(dir(service)) 
 #print(movie.keys()) #para ver todas las opciones que se pueden buscar
 
-p = service.search(cast = 'Leonardo DiCaprio')
-m = service.get_movie(title = 'Inception')
-print(m['cast'])
-#r = str(m['directors'][0])
+#p = service.search(title = 'Django Unchained')
+#m = service.get_movie(id = p[0]['id'])
+#if "Leonardo DiCaprio" in m['actors']:
+#  print(p)
+
 #print(r)
 #print(p)
 
